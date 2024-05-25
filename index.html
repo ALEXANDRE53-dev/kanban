@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Projeto Kanban</title>
+    <style>
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .kanban-board {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .kanban-column {
+            flex: 1;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 0 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .kanban-column h2 {
+            margin: 0;
+            padding: 10px;
+            background-color: #5b4caf;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+            text-align: center;
+        }
+
+        .tasks {
+            min-height: 100px;
+        }
+
+        .kanban-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .kanban-card:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        textarea {
+            width: 100%;
+            height: 60px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #934caf;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5945a0;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Kanban Board</h1>
+    </div>
+    <div class="container">
+        <div class="kanban-board">
+            <div class="kanban-column">
+                <h2>A fazer</h2>
+                <div class="tasks" id="todo">
+                    <button onclick="addNewTask('todo')">Adicionar Tarefa</button>
+                </div>
+            </div>
+            <div class="kanban-column">
+                <h2>Em processo</h2>
+                <div class="tasks" id="in-progress">
+                    <button onclick="addNewTask('in-progress')">Adicionar Tarefa</button>
+                </div>
+            </div>
+            <div class="kanban-column">
+                <h2>Finalizado</h2>
+                <div class="tasks" id="done">
+                    <button onclick="addNewTask('done')">Adicionar Tarefa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addNewTask(columnId) {
+            var column = document.getElementById(columnId);
+            var newTask = document.createElement("div");
+            newTask.className = "kanban-card";
+            newTask.innerHTML = `
+                <textarea placeholder='Nova Tarefa'></textarea>
+                <button onclick='deleteTask(this)'>Excluir</button>`;
+            column.insertBefore(newTask, column.lastChild);
+        }
+
+        function deleteTask(button) {
+            var task = button.parentNode;
+            task.parentNode.removeChild(task);
+        }
+    </script>
+</body>
+</html>
